@@ -1,0 +1,10 @@
+0.7
+2020.2
+May 22 2025
+00:13:55
+C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.sim/sim_1/behav/xsim/glbl.v,1741209010,verilog,,,,glbl,,,,,,,,
+C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sim_1/new/tb_sd_reader.v,1763065813,verilog,,,,tb_sd_reader,,,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sources_1/new/bram_buffer.v,1763145173,verilog,,C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sources_1/new/sd_controller.v,,bram_buffer,,,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sources_1/new/sd_controller.v,1763149109,verilog,,C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sources_1/new/spi_interface.v,,sd_controller,,,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sources_1/new/spi_interface.v,1763065921,verilog,,C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sources_1/new/top.v,,spi_interface,,,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,
+C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sources_1/new/top.v,1763065738,verilog,,C:/Users/User/Desktop/Capstone Project/Vivado Project code/sd_card_reader/sd_card_reader.srcs/sim_1/new/tb_sd_reader.v,,top,,,../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef,,,,,

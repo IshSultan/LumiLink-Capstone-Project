@@ -1,0 +1,4 @@
+Running: xsim.dir/tb_sd_reader_behav/xsimk.exe -simmode gui -wdb tb_sd_reader_behav.wdb -simrunnum 0 -socket 64650
+Design successfully loaded
+Design Loading Memory Usage: 12808 KB (Peak: 12808 KB)
+Design Loading CPU Usage: 77 ms

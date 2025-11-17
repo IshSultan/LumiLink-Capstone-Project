@@ -1,0 +1,7 @@
+Time resolution is 1 ps
+=== SD Card Reader Testbench Starting ===
+Starting simulation...
+Reset released at 100000
+Time: 100000, State: 0, LEDs: 00, BRAM_Addr: 0
+Time: 105000, State: 1, LEDs: 01, BRAM_Addr: 0
+SD Controller: INIT started at time               115000
