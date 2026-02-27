@@ -1,0 +1,172 @@
+from pypandoc import convert_text
+
+content = """
+GStreamer H.264 HDMI Test Guide – Raspberry Pi 3 Model B
+=======================================================
+
+Goal
+----
+Verify that a Raspberry Pi 3 can:
+- Run GStreamer
+- Decode H.264 using hardware (VideoCore IV)
+- Scale video to 320x240
+- Output video to HDMI
+- Accept a continuous byte stream (stdin)
+
+This guide is meant to be followed step-by-step.
+
+-------------------------------------------------------
+STEP 0 – Basic sanity checks
+-------------------------------------------------------
+
+Make sure HDMI is connected and working.
+
+Check GPU firmware:
+vcgencmd version
+
+If this prints firmware info, the GPU is active.
+
+-------------------------------------------------------
+STEP 1 – Install required packages
+-------------------------------------------------------
+
+sudo apt update
+sudo apt install -y \\
+  gstreamer1.0-tools \\
+  gstreamer1.0-plugins-base \\
+  gstreamer1.0-plugins-good \\
+  gstreamer1.0-plugins-bad \\
+  gstreamer1.0-omx
+
+Verify install:
+gst-launch-1.0 --version
+
+-------------------------------------------------------
+STEP 2 – Test GStreamer + HDMI (no decoding)
+-------------------------------------------------------
+
+gst-launch-1.0 videotestsrc ! autovideosink
+
+Expected result:
+- Color bars or moving test pattern on HDMI
+
+-------------------------------------------------------
+STEP 3 – Test scaling to 320x240
+-------------------------------------------------------
+
+gst-launch-1.0 videotestsrc ! \\
+  videoscale ! \\
+  video/x-raw,width=320,height=240 ! \\
+  autovideosink
+
+Expected result:
+- Test pattern scaled to 320x240
+
+-------------------------------------------------------
+STEP 4 – Test hardware H.264 decoding from file
+-------------------------------------------------------
+
+Download a known-good raw H.264 file:
+
+wget https://sample-videos.com/video321/h264/240/big_buck_bunny_240p_1mb.h264
+
+Decode and display:
+
+gst-launch-1.0 \\
+  filesrc location=big_buck_bunny_240p_1mb.h264 ! \\
+  h264parse ! \\
+  omxh264dec ! \\
+  autovideosink
+
+Expected result:
+- Video plays on HDMI
+
+-------------------------------------------------------
+STEP 5 – Decode + scale to 320x240
+-------------------------------------------------------
+
+gst-launch-1.0 \\
+  filesrc location=big_buck_bunny_240p_1mb.h264 ! \\
+  h264parse ! \\
+  omxh264dec ! \\
+  videoscale ! \\
+  video/x-raw,width=320,height=240 ! \\
+  autovideosink
+
+Expected result:
+- Video plays scaled to 320x240
+
+-------------------------------------------------------
+STEP 6 – Test streaming input (stdin)
+-------------------------------------------------------
+
+cat big_buck_bunny_240p_1mb.h264 | \\
+gst-launch-1.0 \\
+  fdsrc ! \\
+  h264parse ! \\
+  omxh264dec ! \\
+  videoscale ! \\
+  video/x-raw,width=320,height=240 ! \\
+  autovideosink
+
+This simulates a continuous byte stream.
+
+-------------------------------------------------------
+STEP 7 – Debugging (if video does not appear)
+-------------------------------------------------------
+
+Enable debug output:
+
+GST_DEBUG=2 gst-launch-1.0 ...
+
+More detailed decode debugging:
+
+GST_DEBUG=h264parse:4,omxh264dec:4 gst-launch-1.0 ...
+
+-------------------------------------------------------
+STEP 8 – Confirm hardware decoding
+-------------------------------------------------------
+
+While video is playing, run:
+
+top
+
+Expected:
+- Low CPU usage (~10–20%)
+- If CPU is high, software decoding is being used
+
+-------------------------------------------------------
+Common problems
+-------------------------------------------------------
+
+Black screen:
+- Missing SPS/PPS in H.264 stream
+- Stream is not Annex-B format
+- Corrupted H.264 data
+
+"not-negotiated" error:
+- Caps mismatch
+- Missing videoscale or capsfilter
+
+-------------------------------------------------------
+Conclusion
+-------------------------------------------------------
+
+If all steps succeed, the Raspberry Pi 3 is confirmed to:
+- Accept a continuous H.264 byte stream
+- Decode it in hardware
+- Scale frames to 320x240
+- Output video via HDMI
+
+At this point, only the real data source (SPI/UART/etc.) remains.
+"""
+
+convert_text(
+    content,
+    'plain',
+    format='md',
+    outputfile='/mnt/data/gstreamer_pi_h264_test.txt',
+    extra_args=['--standalone']
+)
+
+'/mnt/data/gstreamer_pi_h264_test.txt'
